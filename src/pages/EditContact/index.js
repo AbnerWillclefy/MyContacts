@@ -1,3 +1,11 @@
+import ContactForm from '../../components/ContactForm';
+import PageHeader from '../../components/PageHeader';
+
 export default function EditContact() {
-  return 'Edit contact';
+  return (
+    <>
+      <PageHeader title="Editar Abner Willclefy" />
+      <ContactForm buttonLabel="Salvar alterações" />
+    </>
+  );
 }

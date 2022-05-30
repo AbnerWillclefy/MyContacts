@@ -1,4 +1,7 @@
-import styled from 'styled-components';
+/* eslint-disable operator-linebreak */
+/* eslint-disable implicit-arrow-linebreak */
+
+import styled, { css } from 'styled-components';
 
 export default styled.input`
   width: 100%;
@@ -16,4 +19,11 @@ export default styled.input`
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
+
+  ${({ theme, error }) =>
+    error &&
+    css`
+      color: ${theme.colors.danger.main};
+      border-color: ${theme.colors.danger.main} !important;
+    `}
 `;

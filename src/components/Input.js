@@ -1,9 +1,8 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable implicit-arrow-linebreak */
+import { memo } from 'react';
 
 import styled, { css } from 'styled-components';
 
-export default styled.input`
+export default memo(styled.input`
   width: 100%;
   height: 52px;
   background: #fff;
@@ -20,10 +19,9 @@ export default styled.input`
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
 
-  ${({ theme, error }) =>
-    error &&
-    css`
+  ${({ theme, error }) => error
+    && css`
       color: ${theme.colors.danger.main};
       border-color: ${theme.colors.danger.main} !important;
     `}
-`;
+`);

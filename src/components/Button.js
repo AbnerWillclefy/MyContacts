@@ -1,9 +1,8 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable implicit-arrow-linebreak */
+import { memo } from 'react';
 
 import styled, { css } from 'styled-components';
 
-export default styled.button`
+export default memo(styled.button`
   height: 52px;
   border: none;
   padding: 0 16px;
@@ -29,9 +28,8 @@ export default styled.button`
     cursor: default;
   }
 
-  ${({ theme, danger }) =>
-    danger &&
-    css`
+  ${({ theme, danger }) => danger
+    && css`
       background: ${theme.colors.danger.main};
 
       &:hover {
@@ -42,4 +40,4 @@ export default styled.button`
         background: ${theme.colors.danger.dark};
       }
     `}
-`;
+`);

@@ -1,12 +1,8 @@
-/* eslint-disable function-paren-newline */
-/* eslint-disable comma-dangle */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable react/jsx-no-bind */
-
-import PropTypes from 'prop-types';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import isEmailValid from '../../utils/isEmailValid';
+import formatPhone from '../../utils/formatPhone';
 import useErrors from '../../hooks/useErrors';
 
 import { Form, ButtonContainer } from './styles';
@@ -22,7 +18,14 @@ export default function ContactForm({ buttonLabel }) {
   const [phone, setPhone] = useState('');
   const [category, setCategory] = useState('');
 
-  const { getErrorMessageByFieldName, removeError, setError } = useErrors();
+  const {
+    getErrorMessageByFieldName,
+    removeError,
+    setError,
+    errors,
+  } = useErrors();
+
+  const isFormValid = name && errors.length === 0;
 
   function handleNameChange(event) {
     setName(event.target.value);
@@ -45,7 +48,7 @@ export default function ContactForm({ buttonLabel }) {
   }
 
   function handlePhoneChange(event) {
-    setPhone(event.target.value);
+    setPhone(formatPhone(event.target.value));
   }
 
   function handleSubmit(event) {
@@ -56,7 +59,7 @@ export default function ContactForm({ buttonLabel }) {
     <Form onSubmit={handleSubmit} noValidate>
       <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
-          placeholder="Nome"
+          placeholder="Nome *"
           value={name}
           onChange={handleNameChange}
           error={getErrorMessageByFieldName('name')}
@@ -79,6 +82,7 @@ export default function ContactForm({ buttonLabel }) {
           value={phone}
           onChange={handlePhoneChange}
           type="tel"
+          maxLength="15"
         />
       </FormGroup>
 
@@ -89,7 +93,9 @@ export default function ContactForm({ buttonLabel }) {
       </FormGroup>
 
       <ButtonContainer>
-        <Button type="submit">{buttonLabel}</Button>
+        <Button type="submit" disabled={!isFormValid}>
+          {buttonLabel}
+        </Button>
       </ButtonContainer>
     </Form>
   );

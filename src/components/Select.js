@@ -1,6 +1,8 @@
+import { memo } from 'react';
+
 import styled from 'styled-components';
 
-export default styled.select`
+export default memo(styled.select`
   width: 100%;
   height: 52px;
   background: #fff;
@@ -17,4 +19,4 @@ export default styled.select`
   &:focus {
     border-color: ${({ theme }) => theme.colors.primary.main};
   }
-`;
+`);

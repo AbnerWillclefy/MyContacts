@@ -144,7 +144,7 @@ export default function Home() {
             }
 
             {
-              !hasFoundContact && (
+              (!hasFoundContact && !isLoading) && (
                 <SearchNotFoundContainer>
                   <img src={magnifierQuestion} alt="Magnifier Question" />
                   <span>

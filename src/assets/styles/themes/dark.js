@@ -1,12 +1,12 @@
 export default {
   colors: {
-    body: '#FFFFFF',
-    background: '#f6f5fc',
-    title: '#222222',
-    info: '#E5E5E5',
-    placeholder: '#bcbcbc',
+    body: '#373737',
+    background: '#222222',
+    title: '#FFFFFF',
+    info: '#373737',
+    placeholder: '#222222',
     primary: {
-      lighter: '#E0E3FF',
+      lighter: '#222222',
       light: '#6674F4',
       main: '#5061fc',
       dark: '#3346F0',

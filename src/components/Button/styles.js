@@ -9,7 +9,7 @@ export const StyledButton = styled.button`
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
   font-size: 16px;
   font-weight: bold;
-  color: #fff;
+  color: #FFF;
 
   display: flex;
   align-items: center;

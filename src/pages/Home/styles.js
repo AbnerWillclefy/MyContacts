@@ -17,7 +17,7 @@ export const InputSearchContainer = styled.div`
     padding: 0 16px;
 
     &::placeholder {
-      color: #bcbcbc;
+      color: ${({ theme }) => theme.colors.placeholder};
     }
   }
 `;
@@ -28,7 +28,7 @@ export const Header = styled.header`
   align-items: center;
   width: 100%;
   margin-top: 32px;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.gray[100]};
+  border-bottom: 2px solid ${({ theme }) => theme.colors.info};
   padding-bottom: 16px;
 
   strong {
@@ -76,7 +76,7 @@ export const ListHeader = styled.header`
 `;
 
 export const Card = styled.div`
-  background: #fff;
+  background: ${({ theme }) => theme.colors.body};
   padding: 16px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
   border-radius: 4px;

@@ -1,7 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable no-confusing-arrow */
-
 import styled from 'styled-components';
 
 export const Overlay = styled.div`
@@ -32,8 +28,7 @@ export const Container = styled.div`
 
   & > h1 {
     font-size: 22px;
-    color: ${({ theme, danger }) =>
-      danger ? theme.colors.danger.main : theme.colors.title};
+    color: ${({ theme, danger }) => (danger ? theme.colors.danger : theme.colors.title)};
   }
 
   .modal-body {
@@ -53,7 +48,7 @@ export const Footer = styled.footer`
     border: none;
     font-size: 16px;
     margin-right: 24px;
-    color: ${({ theme }) => theme.colors.gray[200]};
+    color: ${({ theme }) => theme.colors.gray[300]};
 
     &[disabled] {
       cursor: default;

@@ -6,7 +6,7 @@ export const Container = styled.div`
   }
 
   small {
-    color: ${({ theme }) => theme.colors.danger.main};
+    color: ${({ theme }) => theme.colors.danger};
     margin-top: 8px;
     display: block;
     font-size: 12px;

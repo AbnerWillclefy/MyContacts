@@ -19,6 +19,13 @@ import sad from '../../assets/images/sad.svg';
 import emptyBox from '../../assets/images/empty-box.svg';
 import magnifierQuestion from '../../assets/images/magnifier-question.svg';
 
+import darkarrow from '../../assets/images/icons/dark-arrow.svg';
+import darkedit from '../../assets/images/icons/dark-edit.svg';
+import darktrash from '../../assets/images/icons/dark-trash.svg';
+import darksad from '../../assets/images/dark-sad.svg';
+import darkemptyBox from '../../assets/images/dark-empty-box.svg';
+import darkmagnifierQuestion from '../../assets/images/dark-magnifier-question.svg';
+
 import Loader from '../../components/Loader';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
@@ -26,6 +33,7 @@ import Modal from '../../components/Modal';
 import formatPhone from '../../utils/formatPhone';
 import ContactsService from '../../services/ContactsService';
 import toast from '../../utils/toast';
+import { useTheme } from '../../contexts/ThemeContext';
 
 export default function Home() {
   const [contacts, setContacts] = useState([]);
@@ -36,6 +44,8 @@ export default function Home() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [contactBeingDeleted, setContactBeingDeleted] = useState(null);
   const [isLoadingDelete, setIsLoadingDelete] = useState(false);
+
+  const { currentTheme } = useTheme();
 
   const hasContactsRegistered = contacts.length > 0;
 
@@ -172,7 +182,7 @@ export default function Home() {
 
       { hasError && (
         <ErrorContainer>
-          <img src={sad} alt="Sad" />
+          <img src={currentTheme === 'light' ? sad : darksad} alt="Sad" />
           <div className="details">
             <strong>Ocorreu um erro ao obter os seus contatos.</strong>
             <Button onClick={handleTryAgain}>Tentar novamente</Button>
@@ -186,7 +196,7 @@ export default function Home() {
             {
               (!hasContactsRegistered && !isLoading) && (
                 <EmptyListContainer>
-                  <img src={emptyBox} alt="Empty Box" />
+                  <img src={currentTheme === 'light' ? emptyBox : darkemptyBox} alt="Empty Box" />
                   <p>
                     Você ainda não tem nenhum contato cadastrado!
                     Clique no botão
@@ -200,7 +210,7 @@ export default function Home() {
             {
               (!hasFoundContact && !isLoading) && (
                 <SearchNotFoundContainer>
-                  <img src={magnifierQuestion} alt="Magnifier Question" />
+                  <img src={currentTheme === 'light' ? magnifierQuestion : darkmagnifierQuestion} alt="Magnifier Question" />
                   <span>
                     Nenhum resultado foi encontrado para
                     {' '}
@@ -217,7 +227,7 @@ export default function Home() {
               <ListHeader orderBy={orderBy}>
                 <button type="button" onClick={handleToggleOrderBy}>
                   <span>Nome</span>
-                  <img src={arrow} alt="Arrow" />
+                  <img src={currentTheme === 'light' ? arrow : darkarrow} alt="Arrow" />
                 </button>
               </ListHeader>
             )}
@@ -236,13 +246,13 @@ export default function Home() {
                 </div>
                 <div className="actions">
                   <Link to={`/edit/${contact.id}`}>
-                    <img src={edit} alt="Edit" />
+                    <img src={currentTheme === 'light' ? edit : darkedit} alt="Edit" />
                   </Link>
                   <button
                     type="button"
                     onClick={() => handleDeleteContact(contact)}
                   >
-                    <img src={trash} alt="Delete" />
+                    <img src={currentTheme === 'light' ? trash : darktrash} alt="Delete" />
                   </button>
                 </div>
               </Card>

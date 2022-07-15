@@ -11,4 +11,15 @@ export const Container = styled.header`
   img {
     margin-bottom: 24px;
   }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin-bottom: 16px;
+    }
+  }
 `;

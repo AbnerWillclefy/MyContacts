@@ -16,6 +16,14 @@ export default createGlobalStyle`
     transition: background 0.2s;
   }
 
+  input {
+    color: ${({ theme }) => theme.colors.title};
+  }
+
+  input::placeholder {
+    color: ${({ theme }) => theme.colors.placeholder};
+  }
+
   button {
     cursor: pointer;
   }

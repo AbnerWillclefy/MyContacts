@@ -13,7 +13,12 @@ export default function Header() {
   return (
     <Container>
       <img src={currentTheme === 'light' ? logo : darklogo} alt="MyContacts" width="201" />
-      <Switch isOn={currentTheme === 'light'} toggle={toggleTheme} />
+      <div>
+        <span>
+          {currentTheme === 'light' ? 'Apagar luzes' : 'Acender luzes'}
+        </span>
+        <Switch isOn={currentTheme === 'light'} toggle={toggleTheme} />
+      </div>
     </Container>
   );
 }

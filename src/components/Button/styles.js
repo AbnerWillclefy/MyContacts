@@ -5,7 +5,7 @@ export const StyledButton = styled.button`
   border: none;
   padding: 0 16px;
   border-radius: 4px;
-  background: ${({ theme }) => theme.colors.primary.main};
+  background: ${({ theme }) => theme.colors.main};
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.04);
   font-size: 16px;
   font-weight: bold;
@@ -15,31 +15,32 @@ export const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  transition: background 0.2s ease-in;
+  transition: filter 0.2s ease-in;
 
   &:hover {
-    background: ${({ theme }) => theme.colors.primary.light};
+    filter: brightness(1.2);
   }
 
   &:active {
-    background: ${({ theme }) => theme.colors.primary.dark};
+    filter: brightness(0.8);
   }
 
   &[disabled] {
-    background: #ccc !important;
+    background: ${({ theme }) => theme.colors.gray[200]} !important;
+    color: ${({ theme }) => theme.colors.disabled.color} !important;
     cursor: default !important;
+
+    &:hover {
+      filter: none;
+    }
+
+    &:active {
+      filter: none;
+    }
   }
 
   ${({ theme, danger }) => danger
     && css`
-      background: ${theme.colors.danger.main};
-
-      &:hover {
-        background: ${theme.colors.danger.light};
-      }
-
-      &:active {
-        background: ${theme.colors.danger.dark};
-      }
+      background: ${theme.colors.danger};
     `}
 `;

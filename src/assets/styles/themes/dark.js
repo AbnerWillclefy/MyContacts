@@ -1,28 +1,26 @@
 export default {
   colors: {
-    body: '#373737',
-    background: '#222222',
+    background: '#121212',
+    surface: '#222222',
+    tag: '#373737',
     title: '#FFFFFF',
-    info: '#373737',
-    placeholder: '#222222',
-    primary: {
-      lighter: '#222222',
-      light: '#6674F4',
-      main: '#5061fc',
-      dark: '#3346F0',
-    },
-    gray: {
-      900: '#222222',
-      200: '#BCBCBC',
-      100: '#E5E5E5',
-    },
-    danger: {
-      light: '#F97171',
-      main: '#FC5050',
-      dark: '#F63131',
-    },
+    main: '#7783EE',
+    danger: '#F97171',
+    placeholder: '#D9D9D9',
+    input: '#373737',
+    divider: '#BCBCBC30',
+    loader: 'rgba(40, 40, 40, 0.7)',
     success: {
       main: '#51CA73',
+    },
+    gray: {
+      200: '#CCCCCC',
+      300: '#BCBCBC',
+      400: '#808080',
+    },
+    disabled: {
+      background: '#808080',
+      color: '#909090',
     },
   },
 };

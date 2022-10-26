@@ -20,7 +20,7 @@ export default function Button({
       onClick={onClick}
     >
       {!isLoading && children}
-      {isLoading && <Spinner size={16} />}
+      {isLoading && <Spinner size={16} data-testid="Spinner" />}
     </StyledButton>
   );
 }

@@ -44,15 +44,8 @@ export default function EditContact() {
     loadContact();
   }, [id, history, safeAsyncAction]);
 
-  async function handleSubmit(formData) {
+  async function handleSubmit(contact) {
     try {
-      const contact = {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        category_id: formData.categoryId,
-      };
-
       const { name } = await ContactsService.updateContact(id, contact);
 
       setContactName(name);
@@ -73,7 +66,9 @@ export default function EditContact() {
     <>
       <Loader isLoading={isLoading} />
 
-      <PageHeader title={isLoading ? 'Carregando...' : `Editar ${contactName}`} />
+      <PageHeader
+        title={isLoading ? 'Carregando...' : `Editar ${contactName}`}
+      />
 
       <ContactForm
         ref={contactFormRef}

@@ -23,29 +23,29 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
   const [isLoadingCategories, setIsLoadingCategories] = useSafeAsyncState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const {
-    getErrorMessageByFieldName,
-    removeError,
-    setError,
-    errors,
-  } = useErrors();
+  const { getErrorMessageByFieldName, removeError, setError, errors } =
+    useErrors();
 
   const isFormValid = name && errors.length === 0;
 
-  useImperativeHandle(ref, () => ({
-    setFieldsValue: (contact) => {
-      setName(contact.name ?? '');
-      setEmail(contact.email ?? '');
-      setPhone(formatPhone(contact.phone) ?? '');
-      setCategoryId(contact.category_id ?? '');
-    },
-    resetFields: () => {
-      setName('');
-      setEmail('');
-      setPhone('');
-      setCategoryId('');
-    },
-  }), []);
+  useImperativeHandle(
+    ref,
+    () => ({
+      setFieldsValue: (contact) => {
+        setName(contact.name ?? '');
+        setEmail(contact.email ?? '');
+        setPhone(formatPhone(contact.phone) ?? '');
+        setCategoryId(contact.category.id ?? '');
+      },
+      resetFields: () => {
+        setName('');
+        setEmail('');
+        setPhone('');
+        setCategoryId('');
+      },
+    }),
+    []
+  );
 
   useEffect(() => {
     async function loadCategories() {
@@ -53,7 +53,8 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
         const categoriesList = await CategoriesService.listCategories();
 
         setCategories(categoriesList);
-      } catch {} finally {
+      } catch {
+      } finally {
         setIsLoadingCategories(false);
       }
     }
@@ -136,20 +137,16 @@ const ContactForm = forwardRef(({ buttonLabel, onSubmit }, ref) => {
           disabled={isLoadingCategories || isSubmitting}
         >
           <option value="">Sem categoria</option>
-          {
-            categories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))
-          }
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
+          ))}
         </Select>
       </FormGroup>
 
       <ButtonContainer>
-        <Button
-          type="submit"
-          disabled={!isFormValid}
-          isLoading={isSubmitting}
-        >
+        <Button type="submit" disabled={!isFormValid} isLoading={isSubmitting}>
           {buttonLabel}
         </Button>
       </ButtonContainer>

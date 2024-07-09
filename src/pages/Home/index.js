@@ -50,13 +50,14 @@ export default function Home() {
   const hasContactsRegistered = contacts.length > 0;
 
   const filteredContacts = useMemo(
-    () => contacts.filter((contact) => (
-      contact.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )),
-    [searchTerm, contacts],
+    () =>
+      contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
+    [searchTerm, contacts]
   );
 
-  const hasFoundContact = (contacts.length > 0 && filteredContacts.length > 0);
+  const hasFoundContact = contacts.length > 0 && filteredContacts.length > 0;
 
   const loadContacts = useCallback(async () => {
     try {
@@ -78,9 +79,7 @@ export default function Home() {
   }, [loadContacts]);
 
   function handleToggleOrderBy() {
-    setOrderBy(
-      (prevState) => (prevState === 'asc' ? 'desc' : 'asc'),
-    );
+    setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
   }
 
   function handleChangeSearchTerm(event) {
@@ -108,9 +107,9 @@ export default function Home() {
 
       await ContactsService.deleteContact(contactBeingDeleted.id);
 
-      setContacts((prevState) => prevState.filter(
-        (contact) => contact.id !== contactBeingDeleted.id,
-      ));
+      setContacts((prevState) =>
+        prevState.filter((contact) => contact.id !== contactBeingDeleted.id)
+      );
 
       handleCloseDeleteModal();
 
@@ -144,43 +143,37 @@ export default function Home() {
         <p>Esta ação não poderá ser desfeita!</p>
       </Modal>
 
-      {
-        hasContactsRegistered && (
-          <InputSearchContainer>
-            <input
-              value={searchTerm}
-              onChange={handleChangeSearchTerm}
-              type="text"
-              placeholder="Pesquisar contato..."
-            />
-          </InputSearchContainer>
-        )
-      }
+      {hasContactsRegistered && (
+        <InputSearchContainer>
+          <input
+            value={searchTerm}
+            onChange={handleChangeSearchTerm}
+            type="text"
+            placeholder="Pesquisar contato..."
+          />
+        </InputSearchContainer>
+      )}
 
-      <Header justifyContent={
-        // eslint-disable-next-line no-nested-ternary
+      <Header
+        justifyContent={
+          // eslint-disable-next-line no-nested-ternary
           hasError
             ? 'flex-end'
-            : (
-              hasContactsRegistered
-                ? 'space-between'
-                : 'center'
-            )
-          }
-      >
-        {
-          (!hasError && hasContactsRegistered) && (
-            <strong>
-              {filteredContacts.length}
-              {' '}
-              {filteredContacts.length === 1 ? 'contato' : 'contatos'}
-            </strong>
-          )
+            : hasContactsRegistered
+            ? 'space-between'
+            : 'center'
         }
+      >
+        {!hasError && hasContactsRegistered && (
+          <strong>
+            {filteredContacts.length}{' '}
+            {filteredContacts.length === 1 ? 'contato' : 'contatos'}
+          </strong>
+        )}
         <Link to="/new">Novo contato</Link>
       </Header>
 
-      { hasError && (
+      {hasError && (
         <ErrorContainer>
           <img src={currentTheme === 'light' ? sad : darksad} alt="Sad" />
           <div className="details">
@@ -190,76 +183,84 @@ export default function Home() {
         </ErrorContainer>
       )}
 
-      {
-        !hasError && (
-          <>
-            {
-              (!hasContactsRegistered && !isLoading) && (
-                <EmptyListContainer>
-                  <img src={currentTheme === 'light' ? emptyBox : darkemptyBox} alt="Empty Box" />
-                  <p>
-                    Você ainda não tem nenhum contato cadastrado!
-                    Clique no botão
-                    <strong> ”Novo contato” </strong>
-                    à cima para cadastrar o seu primeiro!
-                  </p>
-                </EmptyListContainer>
-              )
-            }
+      {!hasError && (
+        <>
+          {!hasContactsRegistered && !isLoading && (
+            <EmptyListContainer>
+              <img
+                src={currentTheme === 'light' ? emptyBox : darkemptyBox}
+                alt="Empty Box"
+              />
+              <p>
+                Você ainda não tem nenhum contato cadastrado! Clique no botão
+                <strong> ”Novo contato” </strong>à cima para cadastrar o seu
+                primeiro!
+              </p>
+            </EmptyListContainer>
+          )}
 
-            {
-              (!hasFoundContact && !isLoading) && (
-                <SearchNotFoundContainer>
-                  <img src={currentTheme === 'light' ? magnifierQuestion : darkmagnifierQuestion} alt="Magnifier Question" />
-                  <span>
-                    Nenhum resultado foi encontrado para
-                    {' '}
-                    <strong>
-                      {searchTerm}
-                    </strong>
-                    .
-                  </span>
-                </SearchNotFoundContainer>
-              )
-            }
+          {!hasFoundContact && !isLoading && (
+            <SearchNotFoundContainer>
+              <img
+                src={
+                  currentTheme === 'light'
+                    ? magnifierQuestion
+                    : darkmagnifierQuestion
+                }
+                alt="Magnifier Question"
+              />
+              <span>
+                Nenhum resultado foi encontrado para{' '}
+                <strong>{searchTerm}</strong>.
+              </span>
+            </SearchNotFoundContainer>
+          )}
 
-            {filteredContacts.length > 0 && (
-              <ListHeader orderBy={orderBy}>
-                <button type="button" onClick={handleToggleOrderBy}>
-                  <span>Nome</span>
-                  <img src={currentTheme === 'light' ? arrow : darkarrow} alt="Arrow" />
+          {filteredContacts.length > 0 && (
+            <ListHeader orderBy={orderBy}>
+              <button type="button" onClick={handleToggleOrderBy}>
+                <span>Nome</span>
+                <img
+                  src={currentTheme === 'light' ? arrow : darkarrow}
+                  alt="Arrow"
+                />
+              </button>
+            </ListHeader>
+          )}
+
+          {filteredContacts.map((contact) => (
+            <Card key={contact.id}>
+              <div className="info">
+                <div className="contact-name">
+                  <strong>{contact.name}</strong>
+                  {contact.category.name && (
+                    <small>{contact.category.name}</small>
+                  )}
+                </div>
+                <span>{contact.email}</span>
+                <span>{formatPhone(contact.phone)}</span>
+              </div>
+              <div className="actions">
+                <Link to={`/edit/${contact.id}`}>
+                  <img
+                    src={currentTheme === 'light' ? edit : darkedit}
+                    alt="Edit"
+                  />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => handleDeleteContact(contact)}
+                >
+                  <img
+                    src={currentTheme === 'light' ? trash : darktrash}
+                    alt="Delete"
+                  />
                 </button>
-              </ListHeader>
-            )}
-
-            {filteredContacts.map((contact) => (
-              <Card key={contact.id}>
-                <div className="info">
-                  <div className="contact-name">
-                    <strong>{contact.name}</strong>
-                    {contact.category_name && (
-                    <small>{contact.category_name}</small>
-                    )}
-                  </div>
-                  <span>{contact.email}</span>
-                  <span>{formatPhone(contact.phone)}</span>
-                </div>
-                <div className="actions">
-                  <Link to={`/edit/${contact.id}`}>
-                    <img src={currentTheme === 'light' ? edit : darkedit} alt="Edit" />
-                  </Link>
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteContact(contact)}
-                  >
-                    <img src={currentTheme === 'light' ? trash : darktrash} alt="Delete" />
-                  </button>
-                </div>
-              </Card>
-            ))}
-          </>
-        )
-      }
+              </div>
+            </Card>
+          ))}
+        </>
+      )}
     </Container>
   );
 }
